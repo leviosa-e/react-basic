@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类方法的 this 指向</title>
+</head>
+
+<body>
+    <script type='text/javascript'>
+        /* // 问题1：直接调用 与 通过实例调用
+        let obj1 = {
+            a: 1,
+            b: 2,
+            c: function () {
+                console.log(this);
+            }
+        }
+        obj1.c() // obj1
+        const x = obj1.c
+        x() // Window */
+
+        // 问题2：类方法的 this
+        class Dog {
+            constructor(name, age) {
+                this.name = name
+                this.age = age
+            }
+            bark() {
+                console.log(this);
+            }
+        }
+        const d1 = new Dog('旺财', 4) // d1
+        d1.bark()
+        const y = d1.bark
+        y() // undefined 因为浏览器会对类方法的直接调用采取严格模式 'use strict'
+    </script>
+</body>
+
+</html>

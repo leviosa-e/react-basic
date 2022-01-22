@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类相关知识</title>
+</head>
+
+<body>
+    <script type='text/javascript'>
+        class Person {
+            constructor(name, age) {
+                this.name = name
+                this.age = age
+            }
+            speak() {
+                console.log('阿巴阿巴..');
+                console.log(this); //谁调用，this 就指向谁
+            }
+        }
+
+        class Student extends Person {
+            constructor(name, age, grade) {
+                // 注意 super 调用必须在 this 之前
+                super(name, age)
+                this.grade = grade
+            }
+            // 重写从父类继承来的方法
+            speak() {
+                console.log(`我叫${this.name}，今年${this.age}岁，在读${this.grade}`);
+                console.log(this);
+            }
+
+            study() {
+                console.log('我在努力学习');
+            }
+        }
+
+        /* const p1 = new Person('小强', 18)
+        console.log(p1);
+        p1.speak()
+
+        const s1 = new Student('小明', 13, '初三')
+        console.log(s1);
+        s1.speak()
+        s1.study() */
+
+        class Car {
+            constructor(name, price) {
+                this.name = name
+                this.price = price
+            }
+            run() {
+                console.log('我正在行驶');
+            }
+            // 赋值语句，给实例身上追加属性
+            a = 1
+            b = function () {
+                console.log('我是b函数');
+            }
+            // static，给类自身追加属性
+            static c = 3
+        }
+
+        const c1 = new Car('Ford', '20k')
+        console.log(c1);
+        c1.run()
+        c1.b()
+        console.log(Car.c);
+    </script>
+</body>
+
+</html>

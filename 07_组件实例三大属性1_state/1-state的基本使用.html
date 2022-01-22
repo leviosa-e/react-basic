@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>state的基本使用</title>
+    <!-- 引入 react 核心库 -->
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/babel">
+        class Weather extends React.Component {
+            constructor(props) {
+                super(props)
+                this.state = { isHot: false }
+                // 从 Weather 的原型对象上找到 changeWeather 方法，将 this 绑定为 Weather 的实例对象，
+                // 从而得到新的 changeWeather 方法，再赋值到 Weather 实例对象自己的身上
+                this.changeWeather = this.changeWeather.bind(this)
+            }
+            render() {
+                // console.log(this);
+                const { isHot } = this.state
+                // 注意此处 changeWeather 与 changeWeather() 的区别
+                // changeWeather() 会让表达式接收函数的返回值以进行下一步操作
+                // 而 changeWeather 则会当成回调函数
+                // 在这步，React 会执行类似 const x = changeWeather，回调时直接调用 x()，而不是通过实例调用
+                return <h2 onClick={this.changeWeather}>今天天气很{isHot ? '炎热' : '凉爽'}</h2> //此处调用的是实例对象上的 changeWeather ，而不是原型对象上的
+            }
+            changeWeather() {
+                // changeWeather 函数是放在 Weather 的原型对象上的，供实例使用
+                console.log(this);
+                const isHot = this.state.isHot
+                this.setState({ isHot: !isHot })
+            }
+        }
+
+        ReactDOM.render(<Weather />, document.getElementById('test'))
+    </script>
+</body>
+
+</html>

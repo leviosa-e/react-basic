@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类式组件</title>
+    <!-- 引入 react 核心库 -->
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/babel">
+        class Demo extends React.Component {
+            // render 方法在 Demo 的原型对象上，供实例使用
+            // render 中的 this 是 Demo 的实例对象
+            render() {
+                console.log(this); // Demo 类的实例对象 <=> Demo 组件的实例对象 <=> Demo 组件对象
+                return <h2>我是用类定义的组件，适用于复杂组件的定义</h2>
+            }
+        }
+
+        ReactDOM.render(<Demo />, document.getElementById('test'))
+        /*
+            1.React 解析组件标签，寻找 Demo 组件的定义位置
+            2.React 发现组件是用类定义的，于是 React 创建了一个 Demo 的实例对象
+            3.通过实例对象去调用 render() 
+        */
+    </script>
+</body>
+
+</html>
